@@ -3,30 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krapto Technologies - Enterprise API Documentation</title>
+    <title>Krapto Technologies | API Documentation</title>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.9.0/swagger-ui.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="https://swagger.io/favicon-32x32.png" sizes="32x32" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary-color: #7c3aed;
-            --accent-color: #06b6d4;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --danger-color: #ef4444;
-            --dark-bg: #0f172a;
-            --card-bg: #1e293b;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --border-color: #334155;
-            --glass-bg: rgba(30, 41, 59, 0.8);
-            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            --primary-color: #111827;
+            --secondary-color: #374151;
+            --accent-color: #2563eb;
+            --accent-light: #3b82f6;
+            --border-color: #e5e7eb;
+            --light-bg: #f9fafb;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.05);
         }
 
         * {
@@ -36,389 +35,277 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--light-bg);
             color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Custom Header */
-        .enterprise-header {
-            background: linear-gradient(135deg, 
-                rgba(15, 23, 42, 0.95) 0%,
-                rgba(30, 41, 59, 0.95) 50%,
-                rgba(15, 23, 42, 0.95) 100%);
-            backdrop-filter: blur(10px);
+        /* Professional Header */
+        .header {
+            background: var(--card-bg);
             border-bottom: 1px solid var(--border-color);
             padding: 1.5rem 2rem;
             position: sticky;
             top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow-lg);
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
         }
 
-        .header-content {
+        .header-container {
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 2rem;
         }
 
-        .logo-container {
+        .brand {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
 
         .logo {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             width: 40px;
             height: 40px;
-            border-radius: 10px;
+            background: var(--primary-color);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            color: white;
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            font-size: 1.2rem;
         }
 
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo-text h1 {
+        .brand-text h1 {
             font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(to right, #60a5fa, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
         }
 
-        .logo-text .tagline {
-            font-size: 0.85rem;
+        .brand-text .tagline {
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            font-weight: 500;
+            font-weight: 400;
         }
 
-        /* Stats Dashboard */
-        .stats-dashboard {
+        /* System Status Bar */
+        .status-bar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .status-container {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
-            gap: 1.5rem;
+            align-items: center;
+            gap: 2rem;
             flex-wrap: wrap;
         }
 
-        .stat-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 0.8rem 1.2rem;
-            min-width: 140px;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--primary-color);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
-        }
-
-        .stat-card .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
+        .status-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
-        .stat-card .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 0.3rem;
-            font-weight: 500;
-        }
-
-        /* Instance Status */
-        .instance-status {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .instance-status .status-dot {
-            width: 10px;
-            height: 10px;
+        .status-dot {
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: var(--success-color);
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            border: 2px solid var(--dark-bg);
-            animation: pulse 2s infinite;
+            background: var(--success);
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        .status-dot.warning {
+            background: var(--warning);
         }
 
-        /* Quick Actions */
-        .quick-actions {
-            display: flex;
-            gap: 0.8rem;
-            margin-top: 1rem;
+        .status-dot.danger {
+            background: var(--danger);
         }
 
-        .action-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
+        .status-text {
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
             font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
-        .action-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-            transform: translateY(-1px);
+        .status-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-family: 'IBM Plex Mono', monospace;
         }
 
-        /* Instance Modal */
-        .instance-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background: var(--dark-bg);
+        /* Instance Quick View */
+        .instances-quickview {
+            background: var(--card-bg);
+            margin: 1.5rem auto;
+            max-width: 1400px;
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            width: 90%;
-            max-width: 1200px;
-            max-height: 80vh;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 2rem;
-            overflow-y: auto;
-            box-shadow: var(--shadow-xl);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
         }
 
-        .modal-header {
+        .quickview-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .modal-header h2 {
-            font-size: 1.5rem;
+        .quickview-header h2 {
+            font-size: 1.25rem;
             font-weight: 600;
+            color: var(--primary-color);
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .close-modal:hover {
-            color: var(--danger-color);
+            gap: 0.75rem;
         }
 
         .instances-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
         }
 
-        .instance-card {
-            background: var(--card-bg);
+        .instance-item {
+            background: var(--light-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
+            border-radius: 6px;
+            padding: 1.25rem;
+            transition: all 0.2s ease;
         }
 
-        .instance-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+        .instance-item:hover {
+            border-color: var(--accent-color);
+            box-shadow: var(--shadow-md);
         }
 
-        .instance-card .instance-header {
+        .instance-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
         }
 
-        .instance-card h3 {
-            font-size: 1.1rem;
+        .instance-name {
             font-weight: 600;
             color: var(--text-primary);
+            font-size: 1rem;
         }
 
-        .instance-status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .instance-region {
             font-size: 0.85rem;
-        }
-
-        .status-live {
-            color: var(--success-color);
+            color: var(--text-secondary);
+            background: var(--light-bg);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
         }
 
         .instance-metrics {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
+            gap: 1rem;
             margin-top: 1rem;
         }
 
         .metric {
             display: flex;
             flex-direction: column;
-            gap: 0.3rem;
+            gap: 0.25rem;
         }
 
         .metric-label {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            font-weight: 500;
         }
 
         .metric-value {
-            font-size: 1rem;
-            font-weight: 600;
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 500;
             color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
         }
 
         .instance-actions {
             display: flex;
             gap: 0.5rem;
             margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
         }
 
-        .instance-btn {
-            flex: 1;
-            padding: 0.5rem;
-            border-radius: 6px;
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
             border: 1px solid var(--border-color);
-            background: transparent;
+            background: var(--card-bg);
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .instance-btn:hover {
-            background: var(--primary-color);
+        .btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: white;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
             color: white;
-            border-color: var(--primary-color);
         }
 
-        /* Swagger UI Customization */
+        .btn-primary:hover {
+            background: var(--accent-light);
+            border-color: var(--accent-light);
+            color: white;
+        }
+
+        /* Swagger UI Customization - Clean & Professional */
         #swagger-ui {
             max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        .swagger-ui .opblock {
-            background: var(--card-bg) !important;
-            border: 1px solid var(--border-color) !important;
-            border-radius: 12px !important;
-            margin: 1.5rem 0 !important;
-            box-shadow: var(--shadow-lg) !important;
-            transition: all 0.3s ease !important;
-        }
-
-        .swagger-ui .opblock:hover {
-            transform: translateY(-2px) !important;
-            box-shadow: var(--shadow-xl) !important;
-            border-color: var(--primary-color) !important;
-        }
-
-        .swagger-ui .opblock-tag {
-            font-size: 1.5rem !important;
-            font-weight: 600 !important;
-            color: var(--text-primary) !important;
-            border-bottom: 2px solid var(--primary-color) !important;
-            padding-bottom: 0.5rem !important;
-            margin: 2rem 0 1rem 0 !important;
-        }
-
-        .swagger-ui .opblock-summary-method {
-            border-radius: 8px !important;
-            font-weight: 600 !important;
-            min-width: 70px !important;
-            text-align: center !important;
-        }
-
-        .swagger-ui .opblock-summary-description {
-            color: var(--text-secondary) !important;
-            font-weight: 500 !important;
-        }
-
-        .swagger-ui .opblock-summary-path {
-            font-family: 'JetBrains Mono', monospace !important;
-            font-weight: 500 !important;
-            color: var(--text-primary) !important;
+        /* Override Swagger default colors */
+        .swagger-ui {
+            font-family: 'Space Grotesk', sans-serif !important;
         }
 
         .swagger-ui .info {
             background: var(--card-bg) !important;
             border: 1px solid var(--border-color) !important;
-            border-radius: 12px !important;
+            border-radius: 8px !important;
             padding: 2rem !important;
             margin-bottom: 2rem !important;
-            box-shadow: var(--shadow-lg) !important;
+            box-shadow: var(--shadow-md) !important;
         }
 
         .swagger-ui .info .title {
-            color: var(--text-primary) !important;
-            font-size: 2.5rem !important;
+            color: var(--primary-color) !important;
+            font-size: 2rem !important;
             font-weight: 700 !important;
             margin-bottom: 1rem !important;
+            font-family: 'Space Grotesk', sans-serif !important;
         }
 
         .swagger-ui .info .description {
@@ -427,29 +314,91 @@
             line-height: 1.6 !important;
         }
 
-        .swagger-ui .servers {
+        .swagger-ui .opblock-tag {
+            font-size: 1.25rem !important;
+            font-weight: 600 !important;
+            color: var(--primary-color) !important;
+            border-bottom: 2px solid var(--accent-color) !important;
+            padding-bottom: 0.5rem !important;
+            margin: 2rem 0 1rem 0 !important;
+            font-family: 'Space Grotesk', sans-serif !important;
+        }
+
+        .swagger-ui .opblock {
             background: var(--card-bg) !important;
             border: 1px solid var(--border-color) !important;
-            border-radius: 12px !important;
-            padding: 1.5rem !important;
+            border-radius: 8px !important;
+            margin: 1.5rem 0 !important;
+            box-shadow: var(--shadow-sm) !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .swagger-ui .opblock:hover {
+            box-shadow: var(--shadow-md) !important;
+            border-color: var(--accent-color) !important;
+        }
+
+        .swagger-ui .opblock-summary-method {
+            border-radius: 4px !important;
+            font-weight: 600 !important;
+            font-family: 'IBM Plex Mono', monospace !important;
+            min-width: 70px !important;
+            text-align: center !important;
+        }
+
+        .swagger-ui .opblock-summary-path {
+            font-family: 'IBM Plex Mono', monospace !important;
+            font-weight: 500 !important;
+            color: var(--text-primary) !important;
+        }
+
+        .swagger-ui .opblock-summary-description {
+            color: var(--text-secondary) !important;
+            font-weight: 400 !important;
+        }
+
+        .swagger-ui .parameter__name {
+            font-weight: 600 !important;
+            color: var(--text-primary) !important;
+            font-family: 'IBM Plex Mono', monospace !important;
+        }
+
+        .swagger-ui .parameter__type {
+            font-family: 'IBM Plex Mono', monospace !important;
+        }
+
+        .swagger-ui .response-col_status {
+            font-family: 'IBM Plex Mono', monospace !important;
+            font-weight: 500 !important;
+        }
+
+        .swagger-ui .scheme-container {
+            background: var(--light-bg) !important;
+            border: 1px solid var(--border-color) !important;
+            border-radius: 8px !important;
+            box-shadow: none !important;
             margin: 1rem 0 !important;
         }
 
-        .swagger-ui .servers-title {
-            color: var(--text-primary) !important;
-            font-weight: 600 !important;
-            margin-bottom: 1rem !important;
+        .swagger-ui .btn.authorize {
+            border-color: var(--accent-color) !important;
+            color: var(--accent-color) !important;
         }
 
-        /* Custom Footer */
-        .enterprise-footer {
-            background: var(--dark-bg);
-            border-top: 1px solid var(--border-color);
-            padding: 2rem;
+        .swagger-ui .btn.authorize:hover {
+            background: var(--accent-color) !important;
+            color: white !important;
+        }
+
+        /* Professional Footer */
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 2rem 2rem;
             margin-top: 3rem;
         }
 
-        .footer-content {
+        .footer-container {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
@@ -458,273 +407,482 @@
         }
 
         .footer-section h3 {
-            color: var(--text-primary);
             font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            color: white;
         }
 
         .footer-links {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.75rem;
         }
 
         .footer-link {
-            color: var(--text-secondary);
+            color: #d1d5db;
             text-decoration: none;
             font-size: 0.95rem;
-            transition: color 0.3s ease;
+            transition: color 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.75rem;
         }
 
         .footer-link:hover {
-            color: var(--primary-color);
+            color: white;
+        }
+
+        .footer-contact {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #d1d5db;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
         }
 
         .copyright {
             text-align: center;
             padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
+            margin-top: 3rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
             font-size: 0.9rem;
         }
 
         .copyright a {
-            color: var(--accent-color);
+            color: var(--accent-light);
             text-decoration: none;
+        }
+
+        .copyright a:hover {
+            text-decoration: underline;
+        }
+
+        /* Utility Classes */
+        .mono {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .text-sm {
+            font-size: 0.9rem;
+        }
+
+        .text-xs {
+            font-size: 0.8rem;
+        }
+
+        .font-medium {
             font-weight: 500;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .font-bold {
+            font-weight: 700;
         }
 
         /* Responsive Design */
         @media (max-width: 1024px) {
-            .header-content {
+            .header-container {
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 1rem;
+                text-align: center;
             }
             
-            .stats-dashboard {
+            .status-container {
                 justify-content: center;
-            }
-            
-            .instances-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-
-        @media (max-width: 768px) {
-            .enterprise-header {
-                padding: 1rem;
-            }
-            
-            .stat-card {
-                min-width: 120px;
-                padding: 0.7rem 1rem;
             }
             
             #swagger-ui {
                 padding: 1rem;
             }
+        }
+
+        @media (max-width: 768px) {
+            .header, .status-bar {
+                padding: 1rem;
+            }
             
-            .footer-content {
+            .instances-quickview {
+                margin: 1rem;
+                padding: 1rem;
+            }
+            
+            .instances-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer {
+                padding: 2rem 1rem;
+            }
+            
+            .footer-container {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Custom Tabs */
+        .tab-container {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding: 0 2rem;
         }
 
-        .animate-fadeIn {
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--dark-bg);
-        }
-
-        ::-webkit-scrollbar-thumb {
+        .tabs {
+            display: flex;
+            gap: 1px;
             background: var(--border-color);
-            border-radius: 5px;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
+        .tab {
+            padding: 1rem 1.5rem;
+            background: var(--light-bg);
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .tab:hover {
+            background: white;
+            color: var(--text-primary);
+        }
+
+        .tab.active {
+            background: var(--card-bg);
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Code Snippet Styling */
+        .code-block {
             background: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 6px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .code-block .comment {
+            color: #6b7280;
+        }
+
+        .code-block .keyword {
+            color: #60a5fa;
+        }
+
+        .code-block .string {
+            color: #34d399;
+        }
+
+        .code-block .function {
+            color: #fbbf24;
         }
     </style>
 </head>
 <body>
-    <!-- Enterprise Header -->
-    <header class="enterprise-header animate-fadeIn">
-        <div class="header-content">
-            <div class="logo-container">
+    <!-- Professional Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="brand">
                 <div class="logo">K</div>
-                <div class="logo-text">
+                <div class="brand-text">
                     <h1>Krapto Technologies</h1>
-                    <span class="tagline">Horizontally Scaled Backend API</span>
+                    <div class="tagline">Horizontally Scaled Backend System v2.0.0</div>
                 </div>
             </div>
-            
-            <div class="stats-dashboard">
-                <div class="stat-card">
-                    <div class="stat-value">
-                        <i class="fas fa-server"></i> 10
-                    </div>
-                    <div class="stat-label">Active Instances</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-value">
-                        <i class="fas fa-bolt"></i> 99.95%
-                    </div>
-                    <div class="stat-label">Uptime</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-value">
-                        <i class="fas fa-globe"></i> 5
-                    </div>
-                    <div class="stat-label">Regions</div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-value">
-                        <i class="fas fa-chart-line"></i> 5M+
-                    </div>
-                    <div class="stat-label">Monthly Requests</div>
-                </div>
+            <div>
+                <button class="btn btn-primary" onclick="downloadSpec()">
+                    <i class="fas fa-download"></i> Download OpenAPI Spec
+                </button>
             </div>
-            
-            <div class="instance-status" onclick="showInstanceModal()">
-                <div class="stat-card">
-                    <div class="stat-value">
-                        <i class="fas fa-shield-alt"></i> Live
-                        <div class="status-dot"></div>
-                    </div>
-                    <div class="stat-label">All Systems Operational</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="quick-actions">
-            <button class="action-btn" onclick="copyBaseUrl()">
-                <i class="fas fa-copy"></i> Copy Base URL
-            </button>
-            <button class="action-btn" onclick="showInstanceModal()">
-                <i class="fas fa-server"></i> View All Instances
-            </button>
-            <button class="action-btn" onclick="testHealthCheck()">
-                <i class="fas fa-heartbeat"></i> Test Health Check
-            </button>
-            <button class="action-btn" onclick="downloadSpec()">
-                <i class="fas fa-download"></i> Download Spec
-            </button>
         </div>
     </header>
 
-    <!-- Instance Modal -->
-    <div id="instanceModal" class="instance-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-server"></i> Global Instance Network</h2>
-                <button class="close-modal" onclick="hideInstanceModal()">&times;</button>
+    <!-- System Status Bar -->
+    <div class="status-bar">
+        <div class="status-container">
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <div class="status-text">System Status: <span class="status-value">Operational</span></div>
             </div>
-            
-            <div class="instances-grid" id="instancesGrid">
-                <!-- Instances will be dynamically loaded -->
+            <div class="status-item">
+                <i class="fas fa-server"></i>
+                <div class="status-text">Active Instances: <span class="status-value">10/10</span></div>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-bolt"></i>
+                <div class="status-text">Uptime: <span class="status-value">99.95%</span></div>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-globe"></i>
+                <div class="status-text">Regions: <span class="status-value">5</span></div>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-chart-line"></i>
+                <div class="status-text">Monthly Requests: <span class="status-value">5M+</span></div>
             </div>
         </div>
     </div>
 
-    <!-- Swagger UI Container -->
-    <div id="swagger-ui"></div>
+    <!-- Tab Navigation -->
+    <div class="tab-container">
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('api')">API Documentation</button>
+            <button class="tab" onclick="switchTab('instances')">Instance Network</button>
+            <button class="tab" onclick="switchTab('examples')">Code Examples</button>
+            <button class="tab" onclick="switchTab('monitoring')">System Monitoring</button>
+        </div>
+        
+        <!-- API Documentation Tab -->
+        <div id="api-tab" class="tab-content active">
+            <div id="swagger-ui"></div>
+        </div>
 
-    <!-- Enterprise Footer -->
-    <footer class="enterprise-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3><i class="fas fa-code"></i> API Resources</h3>
-                <div class="footer-links">
-                    <a href="#" class="footer-link" onclick="downloadSpec()">
-                        <i class="fas fa-file-code"></i> OpenAPI Specification
-                    </a>
-                    <a href="#" class="footer-link" onclick="showInstanceModal()">
-                        <i class="fas fa-network-wired"></i> Instance Network
-                    </a>
-                    <a href="#" class="footer-link" onclick="testAllInstances()">
-                        <i class="fas fa-vial"></i> Test All Endpoints
-                    </a>
-                    <a href="#" class="footer-link" onclick="generateClientSDK()">
-                        <i class="fas fa-cogs"></i> Generate Client SDK
-                    </a>
+        <!-- Instance Network Tab -->
+        <div id="instances-tab" class="tab-content">
+            <div class="instances-quickview">
+                <div class="quickview-header">
+                    <h2><i class="fas fa-network-wired"></i> Global Instance Network</h2>
+                    <button class="btn" onclick="testAllInstances()">
+                        <i class="fas fa-vial"></i> Test All Instances
+                    </button>
+                </div>
+                <div class="instances-grid" id="instancesGrid">
+                    <!-- Instances will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Connection Examples -->
+            <div class="instances-quickview" style="margin-top: 2rem;">
+                <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fas fa-code"></i> Connection Examples
+                </h2>
+                <div class="code-block">
+                    <span class="comment"># Health Check (curl)</span><br>
+                    curl -X GET "https://krapto-backend-server-instance-1.onrender.com/health"<br><br>
+                    
+                    <span class="comment"># With authentication (Node.js)</span><br>
+                    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetch</span>(<span class="string">'https://api.krapto.com/auth/login'</span>, {<br>
+                    &nbsp;&nbsp;method: <span class="string">'POST'</span>,<br>
+                    &nbsp;&nbsp;headers: { <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span> },<br>
+                    &nbsp;&nbsp;body: <span class="function">JSON</span>.<span class="function">stringify</span>({<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;email: <span class="string">'user@example.com'</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;password: <span class="string">'your_password'</span><br>
+                    &nbsp;&nbsp;})<br>
+                    });
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Examples Tab -->
+        <div id="examples-tab" class="tab-content">
+            <div class="instances-quickview">
+                <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fas fa-laptop-code"></i> SDK Examples
+                </h2>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                    <div>
+                        <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Node.js</h3>
+                        <div class="code-block">
+                            <span class="keyword">const</span> KraptoClient = <span class="function">require</span>(<span class="string">'krapto-client'</span>);<br><br>
+                            
+                            <span class="keyword">const</span> client = <span class="keyword">new</span> KraptoClient({<br>
+                            &nbsp;&nbsp;apiKey: <span class="string">'your_api_key'</span>,<br>
+                            &nbsp;&nbsp;region: <span class="string">'auto'</span> <span class="comment">// Auto-selects nearest instance</span><br>
+                            });<br><br>
+                            
+                            <span class="comment">// Health check</span><br>
+                            <span class="keyword">const</span> health = <span class="keyword">await</span> client.health.check();<br><br>
+                            
+                            <span class="comment">// User management</span><br>
+                            <span class="keyword">const</span> users = <span class="keyword">await</span> client.users.list({<br>
+                            &nbsp;&nbsp;page: 1,<br>
+                            &nbsp;&nbsp;limit: 20<br>
+                            });
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Python</h3>
+                        <div class="code-block">
+                            <span class="keyword">from</span> krapto <span class="keyword">import</span> Client<br><br>
+                            
+                            client = Client(<br>
+                            &nbsp;&nbsp;api_key=<span class="string">"your_api_key"</span>,<br>
+                            &nbsp;&nbsp;region=<span class="string">"auto"</span><br>
+                            )<br><br>
+                            
+                            <span class="comment"># Health check</span><br>
+                            health = client.health.check()<br><br>
+                            
+                            <span class="comment"># Create user</span><br>
+                            user = client.users.create(<br>
+                            &nbsp;&nbsp;name=<span class="string">"John Doe"</span>,<br>
+                            &nbsp;&nbsp;email=<span class="string">"john@example.com"</span><br>
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Monitoring Tab -->
+        <div id="monitoring-tab" class="tab-content">
+            <div class="instances-quickview">
+                <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fas fa-chart-bar"></i> System Metrics
+                </h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                    <div class="instance-item">
+                        <div class="metric">
+                            <div class="metric-label">Response Time (p95)</div>
+                            <div class="metric-value">45ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Error Rate</div>
+                            <div class="metric-value">0.05%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="instance-item">
+                        <div class="metric">
+                            <div class="metric-label">Queue Backlog</div>
+                            <div class="metric-value">1.2K</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Cache Hit Rate</div>
+                            <div class="metric-value">94.3%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="instance-item">
+                        <div class="metric">
+                            <div class="metric-label">Database Connections</div>
+                            <div class="metric-value">124/200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Replication Lag</div>
+                            <div class="metric-value">&lt; 200ms</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Monitoring Endpoints</h3>
+                    <div class="code-block">
+                        <span class="comment"># Prometheus metrics</span><br>
+                        GET /metrics<br><br>
+                        
+                        <span class="comment"># Health check (all instances)</span><br>
+                        GET /health/all<br><br>
+                        
+                        <span class="comment"># Queue status (BullMQ)</span><br>
+                        GET /admin/queues<br><br>
+                        
+                        <span class="comment"># Instance performance</span><br>
+                        GET /admin/instances/metrics
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Professional Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                <h3>Krapto Technologies</h3>
+                <div class="footer-contact">
+                    <i class="fas fa-building"></i>
+                    <span>Enterprise Backend Solutions</span>
+                </div>
+                <div class="footer-contact">
+                    <i class="fas fa-location-dot"></i>
+                    <span>Indore, Madhya Pradesh, India</span>
                 </div>
             </div>
             
-            <div class="footer-section">
-                <h3><i class="fas fa-shield-alt"></i> Security</h3>
+            <div>
+                <h3>Technical Leadership</h3>
                 <div class="footer-links">
-                    <a href="#" class="footer-link">
-                        <i class="fas fa-key"></i> Authentication Guide
-                    </a>
-                    <a href="#" class="footer-link">
-                        <i class="fas fa-user-shield"></i> Rate Limiting
-                    </a>
-                    <a href="#" class="footer-link">
-                        <i class="fas fa-fingerprint"></i> API Keys
-                    </a>
-                    <a href="#" class="footer-link">
-                        <i class="fas fa-lock"></i> Security Best Practices
-                    </a>
+                    <div class="footer-link">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Vishal Jha - System Architect</span>
+                    </div>
+                    <div class="footer-link">
+                        <i class="fas fa-user-gear"></i>
+                        <span>Aryan Barde - DevOps Lead</span>
+                    </div>
+                    <div class="footer-link">
+                        <i class="fas fa-users"></i>
+                        <span>Backend Engineering Team</span>
+                    </div>
                 </div>
             </div>
             
-            <div class="footer-section">
-                <h3><i class="fas fa-life-ring"></i> Support</h3>
+            <div>
+                <h3>Support</h3>
                 <div class="footer-links">
                     <a href="mailto:support@krapto.com" class="footer-link">
-                        <i class="fas fa-envelope"></i> support@krapto.com
+                        <i class="fas fa-envelope"></i>
+                        <span>support@krapto.com</span>
                     </a>
-                    <a href="#" class="footer-link">
-                        <i class="fas fa-book"></i> Documentation
+                    <a href="https://github.com/kraptotech" target="_blank" class="footer-link">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub Repository</span>
                     </a>
-                    <a href="#" class="footer-link">
-                        <i class="fas fa-bug"></i> Report Issues
-                    </a>
-                    <a href="#" class="footer-link">
-                        <i class="fas fa-rocket"></i> Status Dashboard
+                    <a href="#" class="footer-link" onclick="showApiStatus()">
+                        <i class="fas fa-signal"></i>
+                        <span>API Status</span>
                     </a>
                 </div>
             </div>
             
-            <div class="footer-section">
-                <h3><i class="fas fa-users"></i> Team</h3>
+            <div>
+                <h3>Documentation</h3>
                 <div class="footer-links">
-                    <span class="footer-link">
-                        <i class="fas fa-user-tie"></i> Vishal Jha - System Architect
-                    </span>
-                    <span class="footer-link">
-                        <i class="fas fa-user-gear"></i> Aryan Barde - DevOps Lead
-                    </span>
-                    <span class="footer-link">
-                        <i class="fas fa-user-check"></i> Backend Engineering Team
-                    </span>
-                    <span class="footer-link">
-                        <i class="fas fa-user-shield"></i> Security Team
-                    </span>
+                    <a href="#" class="footer-link" onclick="downloadSpec()">
+                        <i class="fas fa-file-code"></i>
+                        <span>OpenAPI Specification</span>
+                    </a>
+                    <a href="#" class="footer-link" onclick="switchTab('examples')">
+                        <i class="fas fa-code"></i>
+                        <span>Code Examples</span>
+                    </a>
+                    <a href="#" class="footer-link" onclick="showQuickStart()">
+                        <i class="fas fa-rocket"></i>
+                        <span>Quick Start Guide</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -732,8 +890,8 @@
         <div class="copyright">
             © 2024 Krapto Technologies. Horizontally Scaled Backend System v2.0.0 | 
             <a href="https://github.com/kraptotech" target="_blank">GitHub</a> | 
-            <a href="https://krapto.com" target="_blank">Website</a> | 
-            <a href="#" onclick="showLicense()">MIT License</a>
+            <a href="#" onclick="showLicense()">MIT License</a> | 
+            <a href="#" onclick="showPrivacy()">Privacy Policy</a>
         </div>
     </footer>
 
@@ -744,136 +902,16 @@
     <script>
         // Instance Data
         const instances = [
-            {
-                id: 'instance-1',
-                name: 'Singapore APAC-1',
-                url: 'https://krapto-backend-server-instance-1.onrender.com',
-                region: 'Singapore',
-                status: 'live',
-                loadBalancer: 'Asia-Pacific LB',
-                cpu: '32%',
-                memory: '45%',
-                responseTime: '45ms',
-                requests: '1.2M',
-                uptime: '7d 3h 15m'
-            },
-            {
-                id: 'instance-2',
-                name: 'Singapore APAC-2',
-                url: 'https://krapto-backend-server-instance-2.onrender.com',
-                region: 'Singapore',
-                status: 'live',
-                loadBalancer: 'Asia-Pacific LB',
-                cpu: '28%',
-                memory: '42%',
-                responseTime: '48ms',
-                requests: '1.1M',
-                uptime: '6d 22h 30m'
-            },
-            {
-                id: 'instance-3',
-                name: 'Oregon USW-1',
-                url: 'https://krapto-backend-server-instance-3.onrender.com',
-                region: 'Oregon, USA',
-                status: 'live',
-                loadBalancer: 'US-West LB',
-                cpu: '35%',
-                memory: '50%',
-                responseTime: '38ms',
-                requests: '980K',
-                uptime: '8d 1h 45m'
-            },
-            {
-                id: 'instance-4',
-                name: 'Oregon USW-2',
-                url: 'https://krapto-backend-server-instance-4.onrender.com',
-                region: 'Oregon, USA',
-                status: 'live',
-                loadBalancer: 'US-West LB',
-                cpu: '31%',
-                memory: '48%',
-                responseTime: '42ms',
-                requests: '950K',
-                uptime: '7d 19h 20m'
-            },
-            {
-                id: 'instance-5',
-                name: 'Frankfurt EU-1',
-                url: 'https://krapto-backend-server-instance-5.onrender.com',
-                region: 'Frankfurt, EU',
-                status: 'live',
-                loadBalancer: 'Europe LB',
-                cpu: '29%',
-                memory: '44%',
-                responseTime: '52ms',
-                requests: '870K',
-                uptime: '6d 15h 10m'
-            },
-            {
-                id: 'instance-6',
-                name: 'Frankfurt EU-2',
-                url: 'https://krapto-backend-server-instance-6.onrender.com',
-                region: 'Frankfurt, EU',
-                status: 'live',
-                loadBalancer: 'Europe LB',
-                cpu: '27%',
-                memory: '41%',
-                responseTime: '55ms',
-                requests: '820K',
-                uptime: '6d 8h 45m'
-            },
-            {
-                id: 'instance-7',
-                name: 'Ohio USC-1',
-                url: 'https://krapto-backend-server-instance-7.onrender.com',
-                region: 'Ohio, USA',
-                status: 'live',
-                loadBalancer: 'US-Central LB',
-                cpu: '33%',
-                memory: '47%',
-                responseTime: '40ms',
-                requests: '920K',
-                uptime: '7d 12h 30m'
-            },
-            {
-                id: 'instance-8',
-                name: 'Ohio USC-2',
-                url: 'https://krapto-backend-server-instance-8.onrender.com',
-                region: 'Ohio, USA',
-                status: 'live',
-                loadBalancer: 'US-Central LB',
-                cpu: '30%',
-                memory: '46%',
-                responseTime: '43ms',
-                requests: '890K',
-                uptime: '7d 6h 15m'
-            },
-            {
-                id: 'instance-9',
-                name: 'Virginia USE-1',
-                url: 'https://krapto-backend-server-instance-9.onrender.com',
-                region: 'Virginia, USA',
-                status: 'live',
-                loadBalancer: 'US-East LB',
-                cpu: '34%',
-                memory: '49%',
-                responseTime: '37ms',
-                requests: '1.05M',
-                uptime: '8d 5h 20m'
-            },
-            {
-                id: 'instance-10',
-                name: 'Virginia USE-2',
-                url: 'https://krapto-backend-server-instance-10.onrender.com',
-                region: 'Virginia, USA',
-                status: 'live',
-                loadBalancer: 'US-East LB',
-                cpu: '32%',
-                memory: '48%',
-                responseTime: '39ms',
-                requests: '1.01M',
-                uptime: '8d 0h 45m'
-            }
+            { id: 'instance-1', name: 'SG-APAC-1', region: 'Singapore', url: 'https://krapto-backend-server-instance-1.onrender.com', cpu: '32%', memory: '45%', latency: '45ms', status: 'active' },
+            { id: 'instance-2', name: 'SG-APAC-2', region: 'Singapore', url: 'https://krapto-backend-server-instance-2.onrender.com', cpu: '28%', memory: '42%', latency: '48ms', status: 'active' },
+            { id: 'instance-3', name: 'US-WEST-1', region: 'Oregon, USA', url: 'https://krapto-backend-server-instance-3.onrender.com', cpu: '35%', memory: '50%', latency: '38ms', status: 'active' },
+            { id: 'instance-4', name: 'US-WEST-2', region: 'Oregon, USA', url: 'https://krapto-backend-server-instance-4.onrender.com', cpu: '31%', memory: '48%', latency: '42ms', status: 'active' },
+            { id: 'instance-5', name: 'EU-CENTRAL-1', region: 'Frankfurt, EU', url: 'https://krapto-backend-server-instance-5.onrender.com', cpu: '29%', memory: '44%', latency: '52ms', status: 'active' },
+            { id: 'instance-6', name: 'EU-CENTRAL-2', region: 'Frankfurt, EU', url: 'https://krapto-backend-server-instance-6.onrender.com', cpu: '27%', memory: '41%', latency: '55ms', status: 'active' },
+            { id: 'instance-7', name: 'US-CENTRAL-1', region: 'Ohio, USA', url: 'https://krapto-backend-server-instance-7.onrender.com', cpu: '33%', memory: '47%', latency: '40ms', status: 'active' },
+            { id: 'instance-8', name: 'US-CENTRAL-2', region: 'Ohio, USA', url: 'https://krapto-backend-server-instance-8.onrender.com', cpu: '30%', memory: '46%', latency: '43ms', status: 'active' },
+            { id: 'instance-9', name: 'US-EAST-1', region: 'Virginia, USA', url: 'https://krapto-backend-server-instance-9.onrender.com', cpu: '34%', memory: '49%', latency: '37ms', status: 'active' },
+            { id: 'instance-10', name: 'US-EAST-2', region: 'Virginia, USA', url: 'https://krapto-backend-server-instance-10.onrender.com', cpu: '32%', memory: '48%', latency: '39ms', status: 'active' }
         ];
 
         // Initialize Swagger UI
@@ -890,8 +928,8 @@
                     SwaggerUIBundle.plugins.DownloadUrl
                 ],
                 layout: "StandaloneLayout",
-                defaultModelsExpandDepth: 2,
-                defaultModelExpandDepth: 2,
+                defaultModelsExpandDepth: 1,
+                defaultModelExpandDepth: 1,
                 docExpansion: 'list',
                 tagsSorter: 'alpha',
                 operationsSorter: 'alpha',
@@ -899,33 +937,33 @@
                 displayRequestDuration: true,
                 tryItOutEnabled: true,
                 requestSnippetsEnabled: true,
-                showExtensions: true,
-                showCommonExtensions: true,
                 filter: true
             });
 
             // Customize UI
             ui.initOAuth({
                 clientId: 'krapto-api-client',
-                appName: 'Krapto Technologies API',
+                appName: 'Krapto API',
                 scopeSeparator: ' ',
-                additionalQueryStringParams: {},
-                useBasicAuthenticationWithAccessCodeGrant: true
+                additionalQueryStringParams: {}
             });
 
-            // Populate instances modal
+            // Populate instances grid
             populateInstancesGrid();
         };
 
-        // Modal Functions
-        function showInstanceModal() {
-            document.getElementById('instanceModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function hideInstanceModal() {
-            document.getElementById('instanceModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
+        // Tab Switching
+        function switchTab(tabName) {
+            // Update active tab
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
         }
 
         function populateInstancesGrid() {
@@ -933,27 +971,16 @@
             grid.innerHTML = '';
             
             instances.forEach(instance => {
-                const card = document.createElement('div');
-                card.className = 'instance-card';
-                card.innerHTML = `
+                const item = document.createElement('div');
+                item.className = 'instance-item';
+                item.innerHTML = `
                     <div class="instance-header">
-                        <h3>${instance.name}</h3>
-                        <div class="instance-status-indicator">
-                            <i class="fas fa-circle status-live"></i>
-                            <span>${instance.status.toUpperCase()}</span>
-                        </div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-label">Region</div>
-                        <div class="metric-value">${instance.region}</div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-label">Load Balancer</div>
-                        <div class="metric-value">${instance.loadBalancer}</div>
+                        <div class="instance-name">${instance.name}</div>
+                        <div class="instance-region">${instance.region}</div>
                     </div>
                     <div class="instance-metrics">
                         <div class="metric">
-                            <div class="metric-label">CPU Usage</div>
+                            <div class="metric-label">CPU</div>
                             <div class="metric-value">${instance.cpu}</div>
                         </div>
                         <div class="metric">
@@ -961,54 +988,32 @@
                             <div class="metric-value">${instance.memory}</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-label">Response Time</div>
-                            <div class="metric-value">${instance.responseTime}</div>
+                            <div class="metric-label">Latency</div>
+                            <div class="metric-value">${instance.latency}</div>
                         </div>
                         <div class="metric">
-                            <div class="metric-label">Uptime</div>
-                            <div class="metric-value">${instance.uptime}</div>
+                            <div class="metric-label">Status</div>
+                            <div class="metric-value">${instance.status}</div>
                         </div>
                     </div>
                     <div class="instance-actions">
-                        <button class="instance-btn" onclick="copyUrl('${instance.url}')">
+                        <button class="btn" onclick="copyUrl('${instance.url}')">
                             <i class="fas fa-copy"></i> Copy URL
                         </button>
-                        <button class="instance-btn" onclick="testInstance('${instance.id}')">
-                            <i class="fas fa-heartbeat"></i> Health Check
-                        </button>
-                        <button class="instance-btn" onclick="openInstance('${instance.url}')">
-                            <i class="fas fa-external-link-alt"></i> Open
+                        <button class="btn" onclick="testInstance('${instance.id}')">
+                            <i class="fas fa-heartbeat"></i> Test
                         </button>
                     </div>
                 `;
-                grid.appendChild(card);
+                grid.appendChild(item);
             });
         }
 
         // Utility Functions
-        function copyBaseUrl() {
-            const url = 'https://api.krapto.com';
-            navigator.clipboard.writeText(url).then(() => {
-                alert('Base URL copied to clipboard: ' + url);
-            });
-        }
-
         function copyUrl(url) {
             navigator.clipboard.writeText(url).then(() => {
-                alert('URL copied to clipboard: ' + url);
+                alert('Instance URL copied to clipboard');
             });
-        }
-
-        function testHealthCheck() {
-            const instance = instances[0];
-            fetch(instance.url + '/health')
-                .then(response => response.json())
-                .then(data => {
-                    alert(`Health Check Successful!\nInstance: ${instance.name}\nStatus: ${data.status}\nUptime: ${data.uptime}`);
-                })
-                .catch(error => {
-                    alert('Health Check Failed: ' + error.message);
-                });
         }
 
         function testInstance(instanceId) {
@@ -1017,7 +1022,7 @@
                 fetch(instance.url + '/health')
                     .then(response => response.json())
                     .then(data => {
-                        alert(`${instance.name} is ${data.status.toUpperCase()}\nResponse Time: ${Date.now() - startTime}ms`);
+                        alert(`${instance.name} - Status: ${data.status}\nRegion: ${instance.region}\nUptime: ${data.uptime || 'N/A'}`);
                     })
                     .catch(error => {
                         alert(`Failed to test ${instance.name}: ${error.message}`);
@@ -1025,43 +1030,43 @@
             }
         }
 
-        function openInstance(url) {
-            window.open(url, '_blank');
-        }
-
         function testAllInstances() {
-            alert('Testing all 10 instances...\nThis may take a moment.');
+            alert('Testing all 10 instances... This may take a moment.');
             let healthy = 0;
             instances.forEach(instance => {
                 fetch(instance.url + '/health')
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'healthy') healthy++;
-                        if (healthy === instances.length) {
-                            alert(`✅ All ${instances.length} instances are healthy!`);
-                        }
+                    })
+                    .catch(() => {
+                        // Silently fail for individual instances
                     });
             });
+            
+            setTimeout(() => {
+                alert(`Health Check Complete:\n${healthy}/10 instances healthy\n${instances.length - healthy} instances unreachable`);
+            }, 3000);
         }
 
         function downloadSpec() {
             window.open('swagger/openapi.yaml', '_blank');
         }
 
-        function generateClientSDK() {
-            alert('Client SDK generation coming soon!\nWill support: JavaScript, Python, Java, Go, C#');
+        function showQuickStart() {
+            switchTab('examples');
+        }
+
+        function showApiStatus() {
+            switchTab('monitoring');
         }
 
         function showLicense() {
-            alert('MIT License\n\nCopyright (c) 2024 Krapto Technologies\n\nPermission is hereby granted...');
+            alert('MIT License\n\nPermission is hereby granted, free of charge...');
         }
 
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('instanceModal');
-            if (event.target === modal) {
-                hideInstanceModal();
-            }
+        function showPrivacy() {
+            alert('Privacy Policy\n\nWe take your privacy seriously...');
         }
     </script>
 </body>
