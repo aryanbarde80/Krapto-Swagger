@@ -1,7 +1,7 @@
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/b22f9561-d977-40cf-b6c2-4164c50399f5" /># Krapto Technologies - API Documentation
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/b22f9561-d977-40cf-b6c2-4164c50399f5" />
 
 ## 🌐 Live Documentation
-**URL:** [https://kraptotech.github.io/krapto-api-docs/](https://aryanbarde80.github.io/Krapto-Swagger)
+**URL:** [https://aryanbarde80.github.io/Krapto-Swagger/](https://aryanbarde80.github.io/Krapto-Swagger) 
 
 ## 📚 API Endpoints
 The documentation includes all endpoints for the horizontally scaled backend:
