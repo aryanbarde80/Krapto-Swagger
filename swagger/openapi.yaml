@@ -1,0 +1,751 @@
+openapi: 3.0.0
+info:
+  title: Krapto Technologies - Backend API (Admin Panel)
+  description: |
+    # Horizontally Scaled Edition - 10 Instances
+    ## Node.js Horizontally Scaled BullMQ Consistent Hashing Master-Slave Load Balanced Uptime MIT License
+    
+    ### 🌍 Live Production Instances (Horizontally Scaled)
+    **Global Deployment Network (10 Active Instances)**
+    
+    | Instance | Region | Status | Load Balancer Group |
+    |----------|--------|--------|---------------------|
+    | Instance 1 | Singapore | ✅ LIVE | Asia-Pacific LB |
+    | Instance 2 | Singapore | ✅ LIVE | Asia-Pacific LB |
+    | Instance 3 | Oregon, USA | ✅ LIVE | US-West LB |
+    | Instance 4 | Oregon, USA | ✅ LIVE | US-West LB |
+    | Instance 5 | Frankfurt, EU | ✅ LIVE | Europe LB |
+    | Instance 6 | Frankfurt, EU | ✅ LIVE | Europe LB |
+    | Instance 7 | Ohio, USA | ✅ LIVE | US-Central LB |
+    | Instance 8 | Ohio, USA | ✅ LIVE | US-Central LB |
+    | Instance 9 | Virginia, USA | ✅ LIVE | US-East LB |
+    | Instance 10 | Virginia, USA | ✅ LIVE | US-East LB |
+    
+    ### 🔗 Connect to Any Instance
+    ```
+    # Health Check
+    curl https://krapto-backend-server-instance-1.onrender.com/health
+    
+    # Metrics
+    curl https://krapto-backend-server-instance-1.onrender.com/metrics
+    ```
+  version: 2.0.0
+  contact:
+    name: Krapto Technologies
+    email: support@krapto.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://krapto-backend-server-instance-1.onrender.com/api
+    description: Instance 1 - Singapore (Asia-Pacific)
+  - url: https://krapto-backend-server-instance-2.onrender.com/api
+    description: Instance 2 - Singapore (Asia-Pacific)
+  - url: https://krapto-backend-server-instance-3.onrender.com/api
+    description: Instance 3 - Oregon, USA (US-West)
+  - url: https://krapto-backend-server-instance-4.onrender.com/api
+    description: Instance 4 - Oregon, USA (US-West)
+  - url: https://krapto-backend-server-instance-5.onrender.com/api
+    description: Instance 5 - Frankfurt, EU (Europe)
+  - url: https://krapto-backend-server-instance-6.onrender.com/api
+    description: Instance 6 - Frankfurt, EU (Europe)
+  - url: https://krapto-backend-server-instance-7.onrender.com/api
+    description: Instance 7 - Ohio, USA (US-Central)
+  - url: https://krapto-backend-server-instance-8.onrender.com/api
+    description: Instance 8 - Ohio, USA (US-Central)
+  - url: https://krapto-backend-server-instance-9.onrender.com/api
+    description: Instance 9 - Virginia, USA (US-East)
+  - url: https://krapto-backend-server-instance-10.onrender.com/api
+    description: Instance 10 - Virginia, USA (US-East)
+  - url: https://api.krapto.com
+    description: Production Load Balancer (Global)
+
+tags:
+  - name: Health
+    description: Health check and monitoring endpoints
+  - name: Authentication
+    description: User authentication and authorization
+  - name: Users
+    description: User management operations
+  - name: Content
+    description: Content management operations
+  - name: Analytics
+    description: Analytics and metrics endpoints
+  - name: Jobs
+    description: BullMQ job management
+  - name: System
+    description: System administration and monitoring
+
+paths:
+  # ==================== HEALTH ENDPOINTS ====================
+  /health:
+    get:
+      tags: [Health]
+      summary: Check instance health
+      description: |
+        Returns health status of this specific instance.
+        Check all 10 instances for complete system health.
+      responses:
+        '200':
+          description: Instance is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "healthy"
+                  instance:
+                    type: string
+                    example: "instance-1"
+                  region:
+                    type: string
+                    example: "Singapore"
+                  uptime:
+                    type: string
+                    example: "7d 3h 15m"
+                  services:
+                    type: object
+                    properties:
+                      database:
+                        type: string
+                        example: "connected"
+                      redis:
+                        type: string
+                        example: "connected"
+                      message_queue:
+                        type: string
+                        example: "active"
+
+  /health/all:
+    get:
+      tags: [Health]
+      summary: Check health of all 10 instances
+      description: Returns health status of all horizontally scaled instances
+      responses:
+        '200':
+          description: All instances health status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InstanceHealth'
+
+  /metrics:
+    get:
+      tags: [Health]
+      summary: Get instance metrics
+      description: Prometheus metrics for this instance
+      responses:
+        '200':
+          description: Metrics in Prometheus format
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /metrics/prometheus:
+    get:
+      tags: [Health]
+      summary: Prometheus metrics endpoint
+      responses:
+        '200':
+          description: Prometheus metrics
+
+  # ==================== AUTHENTICATION ENDPOINTS ====================
+  /auth/login:
+    post:
+      tags: [Authentication]
+      summary: User login
+      description: Authenticate user and get JWT token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Invalid credentials
+        '429':
+          description: Too many login attempts
+
+  /auth/register:
+    post:
+      tags: [Authentication]
+      summary: Register new user
+      description: Create a new user account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: User created successfully
+        '400':
+          description: Validation error
+
+  /auth/refresh:
+    post:
+      tags: [Authentication]
+      summary: Refresh JWT token
+      description: Get new access token using refresh token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+      responses:
+        '200':
+          description: New tokens issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefreshResponse'
+
+  # ==================== USER MANAGEMENT ENDPOINTS ====================
+  /users:
+    get:
+      tags: [Users]
+      summary: Get all users
+      description: Retrieve paginated list of users
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: role
+          in: query
+          schema:
+            type: string
+            enum: [admin, user, moderator]
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+    post:
+      tags: [Users]
+      summary: Create new user (Admin only)
+      description: Create a new user (Admin panel)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '403':
+          description: Admin access required
+
+  /users/{id}:
+    get:
+      tags: [Users]
+      summary: Get user by ID
+      description: Retrieve user details by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: User not found
+
+    put:
+      tags: [Users]
+      summary: Update user
+      description: Update user information
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: User updated
+        '404':
+          description: User not found
+
+    delete:
+      tags: [Users]
+      summary: Delete user
+      description: Delete user account
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: User deleted
+        '404':
+          description: User not found
+
+  # ==================== CONTENT MANAGEMENT ENDPOINTS ====================
+  /content:
+    get:
+      tags: [Content]
+      summary: Get all content
+      description: Retrieve paginated content
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [draft, published, archived]
+      responses:
+        '200':
+          description: List of content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentListResponse'
+
+    post:
+      tags: [Content]
+      summary: Create new content
+      description: Create new content entry
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContentRequest'
+      responses:
+        '201':
+          description: Content created
+
+  # ==================== ANALYTICS ENDPOINTS ====================
+  /analytics/overview:
+    get:
+      tags: [Analytics]
+      summary: Get analytics overview
+      description: System-wide analytics data
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Analytics data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsOverview'
+
+  /analytics/requests:
+    get:
+      tags: [Analytics]
+      summary: Get request analytics
+      description: API request analytics by endpoint
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: days
+          in: query
+          schema:
+            type: integer
+            default: 7
+      responses:
+        '200':
+          description: Request analytics
+
+  # ==================== JOB MANAGEMENT ENDPOINTS ====================
+  /jobs/queues:
+    get:
+      tags: [Jobs]
+      summary: Get BullMQ queue status
+      description: Get status of all BullMQ queues
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Queue status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueueStatus'
+
+  /jobs/{queue}/retry-failed:
+    post:
+      tags: [Jobs]
+      summary: Retry failed jobs
+      description: Retry all failed jobs in a queue
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: queue
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [email, analytics, notification]
+      responses:
+        '200':
+          description: Jobs retried
+
+  # ==================== SYSTEM ADMIN ENDPOINTS ====================
+  /admin/instances:
+    get:
+      tags: [System]
+      summary: Get all instance status
+      description: Detailed status of all 10 instances
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Instance details
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InstanceDetail'
+
+  /admin/cache/clear:
+    post:
+      tags: [System]
+      summary: Clear cache
+      description: Clear Redis cache across all instances
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Cache cleared
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    limit:
+      name: limit
+      in: query
+      description: Items per page
+      schema:
+        type: integer
+        default: 20
+
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    # Health Schemas
+    InstanceHealth:
+      type: object
+      properties:
+        instance:
+          type: string
+        region:
+          type: string
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+        uptime:
+          type: string
+        responseTime:
+          type: number
+        cpuUsage:
+          type: number
+        memoryUsage:
+          type: number
+
+    # Auth Schemas
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+
+    LoginResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+
+    RegisterRequest:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+
+    RefreshRequest:
+      type: object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+
+    RefreshResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+
+    # User Schemas
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum: [admin, user, moderator]
+        isActive:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    UserListResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    CreateUserRequest:
+      type: object
+      required:
+        - name
+        - email
+        - role
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum: [admin, user, moderator]
+        password:
+          type: string
+
+    UpdateUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum: [admin, user, moderator]
+        isActive:
+          type: boolean
+
+    # Content Schemas
+    ContentListResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Content'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    CreateContentRequest:
+      type: object
+      required:
+        - title
+        - content
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        status:
+          type: string
+          enum: [draft, published, archived]
+
+    # Analytics Schemas
+    AnalyticsOverview:
+      type: object
+      properties:
+        totalUsers:
+          type: integer
+        totalRequests:
+          type: integer
+        activeInstances:
+          type: integer
+        averageResponseTime:
+          type: number
+        errorRate:
+          type: number
+
+    # Job Schemas
+    QueueStatus:
+      type: object
+      properties:
+        name:
+          type: string
+        waiting:
+          type: integer
+        active:
+          type: integer
+        completed:
+          type: integer
+        failed:
+          type: integer
+        delayed:
+          type: integer
+
+    # System Schemas
+    InstanceDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+        region:
+          type: string
+        status:
+          type: string
+        loadBalancerGroup:
+          type: string
+        startedAt:
+          type: string
+          format: date-time
+        requestsServed:
+          type: integer
+        lastHealthCheck:
+          type: string
+          format: date-time
+
+    # Common Schemas
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        statusCode:
+          type: integer
+        timestamp:
+          type: string
+          format: date-time
+
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        pages:
+          type: integer
