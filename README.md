@@ -1,4 +1,4 @@
-# 🏢 Krapto Technologies - API Documentation Portal
+# 🏢 Krapto Technologies - API Documentation Portal    
 
 ![API Documentation](https://img.shields.io/badge/API-Documentation-2563EB?style=for-the-badge&logo=swagger&logoColor=white)
 ![OpenAPI 3.0](https://img.shields.io/badge/OpenAPI-3.0-85EA2D?style=for-the-badge&logo=openapi-initiative&logoColor=black)
